@@ -13,6 +13,7 @@
 # [[0, 0, 0, 0, 0], [0.5, 0.5, 0, 0, 0], [0.5, 0, 0.5, 0, 0, 0], [1, 0, 0, 1, 0], [x, 1 / 6, 1 / 3, 1 / 3, 1]]
 #
 #The bottom-left element will not be read, so what you put in there doesn't matter.
+#The first row will not be read.
 
 import numpy as np
 import sys
@@ -30,14 +31,14 @@ def estimate(h, t_n, y_n, derivative, butcher_tableau):
     rows = butcher_tableau.shape[0]
     k_0 = derivative(t_n, y_n)
     k = np.array([k_0])
-    for i in range(1, rows):
+    for i in range(1, rows - 1):
         y_term = 0
         for j in range(1, i):
             y_term += k[j - 1] * butcher_tableau[i][j]
 
-        k.append(k, derivative(t_n + h * butcher_tableau[i][0], y_n + h * y_term))
-
-    R = np.dot(butcher_tableau[rows][:1], k.T)
+        k = np.append(k, derivative(t_n + h * butcher_tableau[i][0], y_n + h * y_term))
+ 
+    R = np.dot(butcher_tableau[rows - 1][1:], k)
     return R
 
 def main(h, t_0, y_0, t_n, derivative, butcher_tableau):
@@ -57,7 +58,7 @@ def main(h, t_0, y_0, t_n, derivative, butcher_tableau):
 
     return y_array
 
-if __name__  = '__main__':
+if __name__  == '__main__':
     #The first 4 inputs should be numbers
     #The fifth input should be a python script
     #The sixth imput should be a npy file containing a 2D array
