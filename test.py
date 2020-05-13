@@ -6,8 +6,8 @@ import numpy as np
 #Examples come from https://www.public.asu.edu/~hhuang38/example_Runge-Kutta.pdf
 def example1():
     target = 1.348
-    butcher_tableau = np.array([[0, 0, 0, 0], [0.5, 0.5, 0, 0], [1, -1, 2, 0], [0, 1 / 6, 2 / 3, 1]])
-    derivative = lambda u, x: -2 * u + x + 4
+    butcher_tableau = np.array([[0, 0, 0, 0], [0.5, 0.5, 0, 0], [1, -1, 2, 0], [0, 1 / 6, 2 / 3, 1 / 6]])
+    derivative = lambda x, u: -2 * u + x + 4
     u_0 = 1
     t_0 = 0
     t_n = 0.2
@@ -17,8 +17,8 @@ def example1():
 
 def example2():
     target = 1.3472
-    butcher_tableau = np.array([[0,0,0,0,0], [0.5, 0.5, 0, 0, 0], [0.5, 0, 0.5, 0, 0], [1, 0, 0, 1, 0], [0, 1 / 6, 1 / 3, 1 / 3, 1]])
-    derivative = lambda u, x: -2 * u + x + 4
+    butcher_tableau = np.array([[0,0,0,0,0], [0.5, 0.5, 0, 0, 0], [0.5, 0, 0.5, 0, 0], [1, 0, 0, 1, 0], [0, 1 / 6, 1 / 3, 1 / 3, 1 / 6]])
+    derivative = lambda x, u: -2 * u + x + 4
     u_0 = 1
     t_0 = 0
     t_n = 0.2

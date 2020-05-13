@@ -8,8 +8,8 @@
 #butcher_tableau is a 2D array used to define which runga-ketta method to use.
 #EXAMPLE
 #
-#the butcher tableau for RK4 is 
-# 
+#the butcher tableau for RK4 is
+#
 # [[0, 0, 0, 0, 0], [0.5, 0.5, 0, 0, 0], [0.5, 0, 0.5, 0, 0, 0], [1, 0, 0, 1, 0], [x, 1 / 6, 1 / 3, 1 / 3, 1]]
 #
 #The bottom-left element will not be read, so what you put in there doesn't matter.
@@ -33,12 +33,11 @@ def estimate(h, t_n, y_n, derivative, butcher_tableau):
     k = np.array([k_0])
     for i in range(1, rows - 1):
         y_term = 0
-        for j in range(1, i):
+        for j in range(1, i + 1):
             y_term += k[j - 1] * butcher_tableau[i][j]
 
         k = np.append(k, derivative(t_n + h * butcher_tableau[i][0], y_n + h * y_term))
- 
-    R = np.dot(butcher_tableau[rows - 1][1:], k)
+    R = h * np.dot(butcher_tableau[rows - 1][1:], k)
     return R
 
 def main(h, t_0, y_0, t_n, derivative, butcher_tableau):
